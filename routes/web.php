@@ -8,3 +8,4 @@ Route::get('/customer/create', [CustomerController::class, 'create'])->name('cus
 Route::post('/customer/store', [CustomerController::class, 'store'])->name('customer.store');
 Route::get('/customer/{customer}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
 Route::put('/customer/{customer}', [CustomerController::class, 'update'])->name('customer.update');
+Route::delete('/customer/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');
