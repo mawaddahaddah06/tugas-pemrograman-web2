@@ -70,7 +70,10 @@ return to_route('customer.index')->withSuccess('Data Customer Berhasil Ditambahk
      */
     public function edit(Customer $customer)
     {
-        //
+        return view('customer.edit', [
+            'title' => 'Edit Customer',
+            'customer' => $customer,
+        ]);
     }
 
     /**
@@ -78,7 +81,30 @@ return to_route('customer.index')->withSuccess('Data Customer Berhasil Ditambahk
      */
     public function update(Request $request, Customer $customer)
     {
-        //
+        $validated = $request->validate([
+    'name'      => 'required|max:255',
+    'email'     => 'required|email|unique:customers,email,' . $customer->id,
+    'phone'     => 'required|max:20',
+    'address'   => 'required|max:255',
+    'birthdate' => 'required|date',
+], [
+    'name.required'      => 'Nama wajib diisi',
+    'name.max'           => 'Nama tidak boleh lebih dari :max karakter',
+    'email.required'     => 'Email wajib diisi',
+    'email.email'        => 'Email harus valid',
+    'email.unique'       => 'Email sudah terdaftar',
+    'phone.required'     => 'Nomor telepon wajib diisi',
+    'phone.max'          => 'Nomor telepon maksimal :max karakter',
+    'address.required'   => 'Alamat wajib diisi',
+    'address.max'        => 'Alamat tidak boleh lebih dari :max karakter',
+    'birthdate.required' => 'Tanggal lahir wajib diisi',
+    'birthdate.date'     => 'Tanggal lahir harus berupa format tanggal',
+]);
+
+$customer->update($validated);
+
+return to_route('customer.index')->withSuccess('Data Customer Berhasil Diubah');
+
     }
 
     /**
