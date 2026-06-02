@@ -23,7 +23,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return view('customer.create', ['title' => 'Create Customer']);
     }
 
     /**
@@ -31,7 +31,30 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+    'name'      => 'required|max:255',
+    'email'     => 'required|email|unique:customers',
+    'phone'     => 'required|max:20',
+    'address'   => 'required|max:255',
+    'birthdate' => 'required|date',
+], [
+    'name.required'      => 'Nama wajib diisi',
+    'name.max'           => 'Nama tidak boleh lebih dari :max karakter',
+    'email.required'     => 'Email wajib diisi',
+    'email.email'        => 'Email harus valid',
+    'email.unique'       => 'Email sudah terdaftar',
+    'phone.required'     => 'Nomor telepon wajib diisi',
+    'phone.max'          => 'Nomor telepon maksimal :max karakter',
+    'address.required'   => 'Alamat wajib diisi',
+    'address.max'        => 'Alamat tidak boleh lebih dari :max karakter',
+    'birthdate.required' => 'Tanggal lahir wajib diisi',
+    'birthdate.date'     => 'Tanggal lahir harus berupa format tanggal',
+]);
+
+Customer::create($validated);
+
+return to_route('customer.index')->withSuccess('Data Customer Berhasil Ditambahkan');
+
     }
 
     /**
