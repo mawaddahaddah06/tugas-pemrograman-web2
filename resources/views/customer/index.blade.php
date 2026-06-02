@@ -1,6 +1,14 @@
 <x-app>
+    <x-slot:title>{{ $title }}</x-slot>
 
-    <x-slot:title>Customer</x-slot>
+    <h2>Data Customer</h2>
 
-    <h1 class="fw-bold">Data Customer</h1>
+    <ul class="list-group">
+        @foreach ($customers as $customer)
+            <li class="list-group-item">
+                {{ $loop->iteration }}. {{ $customer->name }} -- {{ $customer->email }} --
+                {{ $customer->phone }} -- {{ $customer->address }} -- {{ $customer->birthdate }}
+            </li>
+        @endforeach
+    </ul>
 </x-app>
