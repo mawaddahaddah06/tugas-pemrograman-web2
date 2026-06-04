@@ -8,6 +8,7 @@
         </div>
     @endsession
 
+    {{-- Form Search --}}
     <form action="">
         <div class="row g-3 mb-3">
             <div class="col-md-8">
@@ -20,21 +21,23 @@
         </div>
     </form>
 
+    {{-- Tabel Member --}}
     <table class="table table-bordered table-striped">
-        <thead>
+        <thead class="table-success text-center">
             <tr>
-                <th class="text-center">Member Name</th>
-                <th class="text-center">No</th>
-                <th class="text-center">Alamat</th>
+                <th class="text-center align-middle" style="width: 5%">No</th>
+                <th class="text-center align-middle" style="width: 25%">Nama</th>
+                <th class="text-center align-middle" style="width: 20%">Nomor Telepon</th>
+                <th class="text-center align-middle" style="width: 40%">Alamat</th>
             </tr>
         </thead>
 
         <tbody>
             @foreach ($members as $member)
                 <tr>
-                    <td>{{ $member->firstItem() + $loop->index }}</td>
-                    <td>{{ $member->name }}</td>
-                    <td>{{ $member->no_telepon }}</td>
+                    <td>{{ $members->firstItem() + $loop->index }}</td>
+                    <td>{{ $member->nama }}</td>
+                    <td>{{ $member->nomor_telepon }}</td>
                     <td>{{ $member->alamat }}</td>
                 </tr>
             @endforeach
