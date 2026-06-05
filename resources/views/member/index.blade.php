@@ -1,15 +1,18 @@
 <x-app>
-
     <x-slot:title>{{ $title }}</x-slot>
 
-    @session('success')
-        <div class="alert alert-warning">
+    {{-- Alert sukses --}}
+    @if (session('success'))
+        <div class="alert alert-success">
             {{ session('success') }}
         </div>
-    @endsession
+    @endif
+
+    {{-- Tombol Tambah Member --}}
+    <a href="{{ route('member.create') }}" class="btn btn-success mb-3">Tambah Member</a>
 
     {{-- Form Search --}}
-    <form action="">
+    <form action="{{ route('member.index') }}" method="GET">
         <div class="row g-3 mb-3">
             <div class="col-md-8">
                 <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Search Member"
@@ -25,22 +28,25 @@
     <table class="table table-bordered table-striped">
         <thead class="table-success text-center">
             <tr>
-                <th class="text-center align-middle" style="width: 5%">No</th>
-                <th class="text-center align-middle" style="width: 25%">Nama</th>
-                <th class="text-center align-middle" style="width: 20%">Nomor Telepon</th>
-                <th class="text-center align-middle" style="width: 40%">Alamat</th>
+                <th style="width: 5%">No</th>
+                <th style="width: 25%">Nama</th>
+                <th style="width: 20%">Nomor Telepon</th>
+                <th style="width: 40%">Alamat</th>
             </tr>
         </thead>
-
         <tbody>
-            @foreach ($members as $member)
+            @forelse ($members as $member)
                 <tr>
                     <td>{{ $members->firstItem() + $loop->index }}</td>
                     <td>{{ $member->nama }}</td>
                     <td>{{ $member->nomor_telepon }}</td>
                     <td>{{ $member->alamat }}</td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="4" class="text-center">Belum ada data Member</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 

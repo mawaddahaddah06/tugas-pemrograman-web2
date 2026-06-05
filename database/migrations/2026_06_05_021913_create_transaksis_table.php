@@ -13,11 +13,12 @@ return new class extends Migration
     {
     Schema::create('transaksis', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('member_id')->constrained()->cascadeOnDelete();
-        $table->date('tanggal_transaksi');
-        $table->decimal('jumlah', 12, 2);
-        $table->string('jenis_transaksi');
+        $table->foreignId('member_id')->constrained('members')->onDelete('cascade');
+        $table->date('transaction_date');
+        $table->decimal('amount', 12, 2);
+        $table->string('type');
         $table->string('status')->default('pending');
+        $table->text('description')->nullable();
         $table->timestamps();
 });
 

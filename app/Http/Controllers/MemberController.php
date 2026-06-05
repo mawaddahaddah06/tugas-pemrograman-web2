@@ -14,6 +14,7 @@ class MemberController extends Controller
     {
         $members = Member::latest();
         $keyword = $request->input('keyword');         
+
         if ($keyword) {
             $members->where('nama', 'like', '%' . $keyword . '%')
                     ->orWhere('nomor_telepon', 'like', '%' . $keyword . '%')
@@ -28,31 +29,43 @@ class MemberController extends Controller
 
     public function create()
     {
-        //return view('members.create', ['title' => 'Tambah Member']);
-    }
-
-    public function store(Request $request)
-    {
-        // nanti di Commit 3 kita isi validasi & simpan data
-    }
-
-    public function show(Member $member)
-    {
-        //return view('members.show', compact('member'));
+        return view('member.create', [
+            'title' => 'Tambah Member',
+        ]);
     }
 
     public function edit(Member $member)
-    {
-        //return view('members.edit', compact('member'));
-    }
+{
+    return view('member.edit', [
+        'title'  => 'Edit Member',
+        'member' => $member,
+    ]);
+}
 
-    public function update(Request $request, Member $member)
-    {
-        // nanti di Commit 4 kita isi validasi & update data
-    }
+public function update(Request $request, Member $member)
+{
+    $validated = $request->validate([
+        'nama'          => 'required|string|max:100',
+        'nomor_telepon' => 'required|string|max:20',
+        'alamat'        => 'required|string|min:10|max:255',
+    ]);
 
-    public function destroy(Member $member)
-    {
-        // nanti di Commit 5 kita isi fungsi hapus data
-    }
+    $member->update($validated);
+
+    return redirect()->route('member.index')->with('success', 'Data Member berhasil diubah');
+}
+
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'nama'          => 'required|string|max:100',
+        'nomor_telepon' => 'required|string|max:20',
+        'alamat'        => 'required|string|min:10|max:255',
+    ]);
+
+    Member::create($validated);
+
+    return redirect()->route('member.index')->with('success', 'Data Member berhasil ditambahkan');
+}
+
 }

@@ -2,18 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['nama', 'no_telepon', 'alamat'])]
 class Member extends Model
 {
-    /** @use HasFactory<\Database\Factories\MemberFactory> */
     use HasFactory;
 
-    public function member(): HasMany
+    protected $fillable = ['nama', 'nomor_telepon', 'alamat'];
+
+    public function transaksis()
     {
         return $this->hasMany(Transaksi::class);
     }

@@ -13,12 +13,11 @@ return new class extends Migration
     {
     Schema::create('members', function (Blueprint $table) {
         $table->id();
-        $table->string('nama');
-        $table->string('nomor_telepon');
-        $table->text('alamat');
+        $table->string('nama', 100);
+        $table->string('nomor_telepon', 20);
+        $table->string('alamat', 255);
         $table->timestamps();
-});
-
+        });
     }
 
     /**
