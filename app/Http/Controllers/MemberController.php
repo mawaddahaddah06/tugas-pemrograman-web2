@@ -27,6 +27,13 @@ class MemberController extends Controller
             'members' => $members->paginate(10)->withQueryString(),
         ]);
     }
+    public function show(Member $member)
+{
+    return view('member.show', [
+        'title'  => 'Detail Member',
+        'member' => $member,
+    ]);
+}
 
     public function create()
     {
