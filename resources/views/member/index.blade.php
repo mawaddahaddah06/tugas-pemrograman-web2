@@ -32,6 +32,7 @@
                 <th style="width: 25%">Nama</th>
                 <th style="width: 20%">Nomor Telepon</th>
                 <th style="width: 40%">Alamat</th>
+                <th style="width: 10%">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -41,10 +42,19 @@
                     <td>{{ $member->nama }}</td>
                     <td>{{ $member->nomor_telepon }}</td>
                     <td>{{ $member->alamat }}</td>
+                    <td>
+                        <a class="btn btn-warning btn-sm" href="{{ route('member.edit', $member->id) }}">Edit</a>
+                        <form action="{{ route('member.destroy', $member->id) }}" method="POST" class="d-inline">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                onclick="return confirm('Anda Yakin Ingin Menghapus Data Ini?')">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4" class="text-center">Belum ada data Member</td>
+                    <td colspan="5" class="text-center">Belum ada data Member</td>
                 </tr>
             @endforelse
         </tbody>
