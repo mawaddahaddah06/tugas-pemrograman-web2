@@ -3,63 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
+use App\Models\Member;
 use Illuminate\Http\Request;
 
 class TransaksiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        $transaksis = Transaksi::with('member')->latest();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        // filter berdasarkan member
+        if ($request->member_id) {
+            $transaksis->where('member_id', $request->member_id);
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // pencarian berdasarkan jenis atau keterangan
+        if ($request->keyword) {
+            $transaksis->where(function ($query) use ($request) {
+                $query->where('jenis', 'like', '%' . $request->keyword . '%')
+                    ->orWhere('keterangan', 'like', '%' . $request->keyword . '%');
+            });
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Transaksi $transaksi)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Transaksi $transaksi)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Transaksi $transaksi)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Transaksi $transaksi)
-    {
-        //
+        return view('transaksi.index', [
+            'title'      => 'Transaksi',
+            'transaksis' => $transaksis->paginate(10)->withQueryString(),
+            'members'    => Member::all(),
+        ]);
     }
 }
