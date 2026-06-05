@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-    Schema::create('transaksis', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('member_id')->constrained('members')->onDelete('cascade');
-        $table->date('transaction_date');
-        $table->decimal('amount', 12, 2);
-        $table->string('type');
-        $table->string('status')->default('pending');
-        $table->text('description')->nullable();
-        $table->timestamps();
-});
+        Schema::create('transaksis', function (Blueprint $table) {
+            $table->id(); // transaksi_id
+            $table->string('jenis');        // jenis transaksi (misalnya: cash, transfer)
+            $table->string('keterangan');   // keterangan transaksi
+            $table->date('tanggal');        // tanggal transaksi
+            $table->unsignedBigInteger('member_id'); // relasi ke member
+            $table->timestamps();
 
+            // foreign key ke tabel members
+            $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
+        });
     }
 
     /**

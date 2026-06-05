@@ -36,11 +36,12 @@ class MemberController extends Controller
 }
 
     public function create()
-    {
-        return view('member.create', [
-            'title' => 'Tambah Member',
-        ]);
-    }
+{
+    return view('member.create', [
+        'title'   => 'Tambah Member',
+        'members' => Member::all(), // ini wajib
+    ]);
+}
     public function destroy(Member $member)
 {
     $member->delete();

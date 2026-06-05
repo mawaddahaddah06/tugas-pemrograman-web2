@@ -2,17 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Transaksi extends Model
 {
-    use HasFactory;
+    protected $fillable = ['jenis', 'keterangan', 'tanggal', 'member_id'];
 
-    protected $fillable = [
-        'member_id', 'transaction_date', 'amount', 'type', 'status', 'description'
-    ];
 
+    // Relasi ke Member
     public function member()
     {
         return $this->belongsTo(Member::class);
