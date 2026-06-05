@@ -51,9 +51,11 @@
                                 onclick="return confirm('Anda Yakin Ingin Menghapus Data Ini?')">Delete</button>
                         </form>
                     </td>
+
                 </tr>
             @empty
                 <tr>
+
                     <td colspan="5" class="text-center">Belum ada data Member</td>
                 </tr>
             @endforelse

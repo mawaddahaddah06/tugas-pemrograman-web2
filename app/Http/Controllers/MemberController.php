@@ -34,6 +34,11 @@ class MemberController extends Controller
             'title' => 'Tambah Member',
         ]);
     }
+    public function destroy(Member $member)
+{
+    $member->delete();
+    return redirect()->route('member.index')->with('success', 'Data Member berhasil dihapus');
+}
 
     public function edit(Member $member)
 {
@@ -61,9 +66,8 @@ public function update(Request $request, Member $member)
     'alamat.max'             => 'Alamat maksimal 255 karakter',
 ]);
 
-    $member->update($validated);
-
-    return redirect()->route('member.index')->with('success', 'Data Member berhasil diubah');
+    $member->delete();
+    return to_route('member.index')->withSuccess('Data Member Berhasil Dihapus');
 }
 
 public function store(Request $request)
