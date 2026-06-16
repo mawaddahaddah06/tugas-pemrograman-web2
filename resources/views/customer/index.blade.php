@@ -1,12 +1,12 @@
 <x-app>
     <x-slot:title>{{ $title }}</x-slot>
 
-    <h2>Data Customer</h2>
+    <a class="btn btn-primary mb-3" href="{{ route('customer.create') }}" role="button">Create</a>
 
     <ul class="list-group">
         @foreach ($customers as $customer)
             <li class="list-group-item">
-                {{ $loop->iteration }}. {{ $customer->name }} -- {{ $customer->email }} --
+                {{ $loop->iteration }}. {{ $customer->name }} -- {{ $customer->gender }}-- {{ $customer->email }} --
                 {{ $customer->phone }} -- {{ $customer->address }} -- {{ $customer->birthdate }}
 
                 <a class="btn btn-warning btn-sm" href="{{ route('customer.edit', $customer) }}" role="button">Edit</a>

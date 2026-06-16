@@ -34,6 +34,7 @@ class CustomerController extends Controller
     {
         $validated = $request->validate([
     'name'      => 'required|max:255',
+    'gender'    => 'required|in:Male,Female',
     'email'     => 'required|email|unique:customers',
     'phone'     => 'required|max:20',
     'address'   => 'required|max:255',
@@ -41,6 +42,7 @@ class CustomerController extends Controller
 ], [
     'name.required'      => 'Nama wajib diisi',
     'name.max'           => 'Nama tidak boleh lebih dari :max karakter',
+    'gender'             => 'required|in:Male,Female',
     'email.required'     => 'Email wajib diisi',
     'email.email'        => 'Email harus valid',
     'email.unique'       => 'Email sudah terdaftar',
@@ -113,7 +115,8 @@ return to_route('customer.index')->withSuccess('Data Customer Berhasil Diubah');
      */
     public function destroy(Customer $customer)
     {
-        $customer->delete($customer);
-        return to_route('customer.index')->withSuccess('Data Customer Berhasil Dihapus');
-    }
+    $customer->delete();
+    return to_route('customer.index')->withSuccess('Data Customer Berhasil Dihapus');
 }
+
+    }

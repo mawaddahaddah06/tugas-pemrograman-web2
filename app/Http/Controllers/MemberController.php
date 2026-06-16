@@ -82,11 +82,14 @@ public function store(Request $request)
 {
     $validated = $request->validate([
         'nama'          => 'required|string|max:100',
+        'gender'        => 'required|in:Male,Female',
         'nomor_telepon' => 'required|string|max:20',
         'alamat'        => 'required|string|min:10|max:255',
     ], [
         'nama.required'          => 'Nama Member wajib diisi',
         'nama.max'               => 'Nama Member maksimal 100 karakter',
+
+        'gender' => 'required|in:Male,Female',
 
         'nomor_telepon.required' => 'Nomor Telepon wajib diisi',
         'nomor_telepon.max'      => 'Nomor Telepon maksimal 20 karakter',

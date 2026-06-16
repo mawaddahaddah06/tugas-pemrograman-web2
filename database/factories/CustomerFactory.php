@@ -23,6 +23,7 @@ class CustomerFactory extends Factory
             'phone'     => fake()->phoneNumber(),
             'address'   => fake()->address(),
             'birthdate' => fake()->date(),
+            'gender'    => fake()->randomElements(['Male', 'Female']),
         ];
     }
 }
