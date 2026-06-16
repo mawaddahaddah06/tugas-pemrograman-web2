@@ -138,4 +138,12 @@ class CustomerController extends Controller
     return to_route('customer.index')->withSuccess('Data Customer Berhasil Dihapus');
 }
 
+public function trash()
+{
+    return view('customer.trash', [
+        'title' => 'Trash Customer',
+        'customers' => Customer::onlyTrashed()->latest()->get(),
+    ]);
+
     }
+}
