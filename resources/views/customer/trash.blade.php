@@ -13,6 +13,13 @@
                 <button type="submit" class="btn btn-warning btn-sm"
                     onclick="return confirm('Anda Yakin Ingin Mengembalikan Data Ini?')">Restore</button>
             </form>
+            <form action="{{ route('customer.forceDelete', $customer->id) }}" method="POST" class="d-inline">
+                @method('DELETE')
+                @csrf
+                <button type="submit" class="btn btn-danger btn-sm"
+                    onclick="return confirm('Anda Yakin Ingin Menghapus Permanen Data Ini?')">Force
+                    Delete</button>
+            </form>
         @empty
             <li class="list-group-item text-center">
                 Tidak ada data Customer

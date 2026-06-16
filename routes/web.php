@@ -16,5 +16,6 @@ Route::put('/customer/{customer}', [CustomerController::class, 'update'])->name(
 Route::delete('/customer/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');
 Route::get('/customer/trash', [CustomerController::class, 'trash'])->name('customer.trash');
 Route::put('/customer/{id}/restore', [CustomerController::class, 'restore'])->name('customer.restore');
+Route::delete('/customer/{id}/force-delete', [CustomerController::class, 'forceDelete'])->name('customer.forceDelete');
 Route::resource('member', MemberController::class);
 Route::resource('transaksi', TransaksiController::class);
